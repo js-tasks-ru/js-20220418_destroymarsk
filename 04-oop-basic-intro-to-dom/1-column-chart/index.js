@@ -1,9 +1,9 @@
 export default class ColumnChart {
   chartHeight = 50;
 
-  constructor({ label, value, link, data, formatHeading } = {}) {
+  constructor({ data = [], value = '', formatHeading = value => value, label, link } = {}) {
     this.data = data;
-    this.label = label;
+    this.label = label || 0;
     this.value = value;
     this.link = link;
     this.formatHeading = formatHeading;
@@ -52,8 +52,8 @@ export default class ColumnChart {
     return `
       ${this.getTitleTemplate()}
       <div class="column-chart__container">
-        ${this.value && this.getHeaderTemplate()}
-        ${this.data && this.getBodyTemplate()}
+        ${this.value ? this.getHeaderTemplate() : ''}
+        ${this.data ? this.getBodyTemplate() : ''}
       </div>
     `;
   }
