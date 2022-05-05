@@ -77,6 +77,9 @@ export default class ColumnChart {
   }
 
   destroy() {
+    this.remove();
+
+    this.element = null;
     this.data = null;
     this.label = null;
     this.value = null;
@@ -85,6 +88,6 @@ export default class ColumnChart {
   }
 
   remove() {
-    this.element = null;
+    this.element.remove();
   }
 }
