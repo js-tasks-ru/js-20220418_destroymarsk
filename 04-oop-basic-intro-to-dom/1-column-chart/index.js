@@ -1,7 +1,7 @@
 export default class ColumnChart {
-  MAX_COLUMN_SIZE = 50;
+  chartHeight = 50;
 
-  constructor({ label, value, link, data, formatHeading }) {
+  constructor({ label, value, link, data, formatHeading } = {}) {
     this.data = data;
     this.label = label;
     this.value = value;
@@ -20,7 +20,7 @@ export default class ColumnChart {
 
     return `
         <div class="column-chart__title">
-        Total ${this.label}
+        Total ${this.label && this.label}
         ${link}
         </div>
     `;
@@ -34,30 +34,37 @@ export default class ColumnChart {
   }
 
   getBodyTemplate() {
-    const cols = this.data.map((value) =>
-      `<div style="--value: ${this.MAX_COLUMN_SIZE * value / 100}" data-tooltip="${value}%"></div>`
-    );
+    const maxValue = Math.max(...this.data);
+    const scaleValue = this.chartHeight / maxValue;
+
+    const cols = this.data.map((value) => {
+      const chartValue = Math.floor(scaleValue * value);
+      const chartPercent = (value / maxValue * 100).toFixed(0);
+
+      return `<div style="--value: ${chartValue}" data-tooltip="${chartPercent}%"></div>`
+    })
 
     return `<div data-element="body" class="column-chart__chart">${cols.join('')}</div>`;
   }
+
 
   getChartTemplate() {
     return `
       ${this.getTitleTemplate()}
       <div class="column-chart__container">
-        ${this.getHeaderTemplate()}
-        ${this.getBodyTemplate()}
+        ${this.value && this.getHeaderTemplate()}
+        ${this.data && this.getBodyTemplate()}
       </div>
     `;
   }
 
   render() {
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement("div");
     wrapper.className = "column-chart";
-    wrapper.style.cssText = `--chart-height: ${this.MAX_COLUMN_SIZE}`;
+    wrapper.style.cssText = `--chart-height: ${this.chartHeight}`;
 
-    if (this.data.length === 0) {
-      wrapper.classList.add('column-chart_loading');
+    if (!this.data || this.data.length === 0) {
+      wrapper.classList.add("column-chart_loading");
     }
     wrapper.innerHTML = this.getChartTemplate();
 
@@ -67,5 +74,17 @@ export default class ColumnChart {
   update(data) {
     this.data = data;
     this.render();
+  }
+
+  destroy() {
+    this.data = null;
+    this.label = null;
+    this.value = null;
+    this.link = null;
+    this.formatHeading = null;
+  }
+
+  remove() {
+    this.element = null;
   }
 }
