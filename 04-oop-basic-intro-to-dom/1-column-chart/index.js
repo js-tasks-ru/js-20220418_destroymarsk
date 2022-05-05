@@ -27,7 +27,8 @@ export default class ColumnChart {
   }
 
   getHeaderTemplate() {
-    const headerData = this.formatHeading ? this.formatHeading(this.value) : this.value;
+    const intlValue = new Intl.NumberFormat().format(this.value);
+    const headerData = this.formatHeading ? this.formatHeading(intlValue) : intlValue;
 
     return `<div data-element="header" class="column-chart__header">${headerData}</div>`;
   }
