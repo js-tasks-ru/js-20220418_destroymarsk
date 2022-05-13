@@ -30,6 +30,12 @@ export default class NotificationMessage {
   }
 
   show(element) {
+    const notificationElement = document.body.querySelector('.notification');
+
+    if (notificationElement) {
+      notificationElement.remove();
+    }
+
     if (element) {
       this.element = element;
     }
