@@ -81,10 +81,6 @@ export default class SortableTable {
   }
 
   sort(field, order = 'asc') {
-    if (this.sortArrow) {
-      this.sortArrow.remove();
-    }
-
     if (this.sortElement) {
       this.sortElement.removeAttribute('data-order');
     }
