@@ -19,7 +19,6 @@ export default class SortableTable {
     `);
 
     header.innerHTML = cols.join('');
-    this.subElements.header = header;
 
     return header;
   }
@@ -38,7 +37,6 @@ export default class SortableTable {
     `);
 
     body.innerHTML = rows.join('');
-    this.subElements.body = body;
 
     return body;
   }
@@ -94,14 +92,19 @@ export default class SortableTable {
     const sortedData = this.sortData(field, order);
     const sortedBody = this.getBodyElement(sortedData);
 
-    this.element.querySelector("[data-element='body']").replaceWith(sortedBody);
+    this.subElements.body.replaceWith(sortedBody);
+    this.subElements.body = sortedBody;
   }
 
   render() {
     const wrapper = document.createElement('div');
     wrapper.className = 'sortable-table';
-    wrapper.append(this.getHeaderElement());
-    wrapper.append(this.getBodyElement());
+
+    this.subElements.header = this.getHeaderElement();
+    this.subElements.body = this.getBodyElement();
+
+    wrapper.append(this.subElements.header);
+    wrapper.append(this.subElements.body);
 
     this.element = wrapper;
   }
