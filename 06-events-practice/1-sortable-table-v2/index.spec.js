@@ -119,8 +119,8 @@ describe('events-practice/sortable-table-v2', () => {
     const firstRow = body.firstElementChild;
     const lastRow = body.lastElementChild;
 
-    expect(firstRow).toHaveTextContent('53');
-    expect(lastRow).toHaveTextContent('3');
+    expect(lastRow).toHaveTextContent('53');
+    expect(firstRow).toHaveTextContent('3');
   });
 
   it('should move arrow icon to the corresponding column after sorting', () => {
