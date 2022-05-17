@@ -19,9 +19,7 @@ class Tooltip {
     const elementTooltip = event.target.dataset.tooltip;
     const prevElementTooltip = event.relatedTarget?.dataset?.tooltip;
 
-    if (!prevElementTooltip && !elementTooltip) return;
-
-    if (prevElementTooltip && !elementTooltip) {
+    if ((!prevElementTooltip && !elementTooltip) || (prevElementTooltip && !elementTooltip)) {
       this.remove();
       return;
     }
