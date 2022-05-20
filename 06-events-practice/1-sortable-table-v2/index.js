@@ -94,13 +94,15 @@ export default class SortableTable {
 
     const sortArrow = document.createElement('span');
 
-    sortArrow.className = 'sortable-table__sort-arrow';
-    sortArrow.dataset.element = 'arrow';
-    sortArrow.innerHTML = '<span class="sort-arrow"></span>';
+    sortArrow.innerHTML = `
+      <span data-element="arrow" class="sortable-table__sort-arrow">
+        <span class="sort-arrow"></span>
+      </span>
+    `;
 
-    this.sortArrow = sortArrow;
+    this.sortArrow = sortArrow.firstElementChild;
 
-    return sortArrow;
+    return this.sortArrow;
   }
 
   sort(field, order = 'asc') {
