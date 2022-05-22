@@ -1,5 +1,8 @@
 export default class NotificationMessage {
   INITIAL_DURATION = 1000
+  timerId;
+
+  static activeNotification;
 
   constructor(message = '', {type = 'success', duration = this.INITIAL_DURATION} = {}) {
     this.message = message;
@@ -11,29 +14,28 @@ export default class NotificationMessage {
 
   render() {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('notification');
-    wrapper.classList.add(this.type);
-    wrapper.style.setProperty('--value', `${this.duration / 1000}s`);
-
 
     wrapper.innerHTML = `
-      <div class="timer"></div>
-      <div class="inner-wrapper">
-        <div class="notification-header">${this.type}</div>
-        <div class="notification-body">
-          ${this.message}
+      <div class="notification">
+        <div class="timer"></div>
+        <div class="inner-wrapper">
+          <div class="notification-header">${this.type}</div>
+          <div class="notification-body">
+            ${this.message}
+          </div>
         </div>
       </div>
     `;
 
-    this.element = wrapper;
+    wrapper.firstElementChild.classList.add(this.type);
+    wrapper.firstElementChild.style.setProperty('--value', `${this.duration / 1000}s`);
+
+    this.element = wrapper.firstElementChild;
   }
 
   show(element) {
-    const notificationElement = document.body.querySelector('.notification');
-
-    if (notificationElement) {
-      notificationElement.remove();
+    if (NotificationMessage.activeNotification) {
+      NotificationMessage.activeNotification.remove();
     }
 
     if (element) {
@@ -41,10 +43,14 @@ export default class NotificationMessage {
     }
 
     document.body.prepend(this.element);
-    setTimeout(() => this.remove(), this.duration);
+    this.timerId = setTimeout(() => this.remove(), this.duration);
+    NotificationMessage.activeNotification = this;
   }
 
   remove() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
     this.element.remove();
   }
 
@@ -52,6 +58,9 @@ export default class NotificationMessage {
     this.message = '';
     this.type = 'success';
     this.duration = this.INITIAL_DURATION;
+    this.timerId = null;
+    NotificationMessage.activeNotification = null;
+
     this.remove();
   }
 }
