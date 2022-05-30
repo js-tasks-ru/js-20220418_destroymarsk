@@ -37,24 +37,24 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     expect(selector.innerHTML).toEqual('');
   });
 
-  it('should be opened on click', () => {
+  it('should be opened on pointerdown', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
     expect(rangePicker.element.classList).toContain('rangepicker_open');
   });
 
-  it('should be closed on second click', function() {
+  it('should be closed on second pointerdown', function() {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -66,7 +66,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const dateFrom = input.firstElementChild.innerHTML;
     const dateTo = input.lastElementChild.innerHTML;
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -74,7 +74,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     expect(dateTo).toMatch('05.11.2019');
   });
 
-  it('should highlight selected \'from\' and \'to\' dates in calendar', () => {
+  it('should highlight selected \'from\' and \'to\' dates in calendar', async () => {
     const rangePicker = new RangePicker({
       from: new Date(2019, 9, 12),
       to: new Date(2019, 10, 25)
@@ -82,7 +82,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
 
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -101,7 +101,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const rangePicker = new RangePicker({from, to});
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -113,14 +113,14 @@ describe('forms-fetch-api-part-2/range-picker', () => {
   it('should clear highlighting of previous selection', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
     const from = rangePicker.element.querySelector('.rangepicker__selected-from');
     const prevDate = from.previousElementSibling;
 
-    prevDate.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+    prevDate.dispatchEvent(new MouseEvent('pointerdown', {bubbles: true}));
 
     const selectedBetween = rangePicker.element.querySelectorAll('.rangepicker__selected-between');
 
@@ -131,7 +131,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -139,8 +139,8 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const prevDate = from.previousElementSibling;
     const nextDate = from.nextElementSibling;
 
-    prevDate.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-    nextDate.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+    prevDate.dispatchEvent(new MouseEvent('pointerdown', {bubbles: true}));
+    nextDate.dispatchEvent(new MouseEvent('pointerdown', {bubbles: true}));
 
     from = rangePicker.element.querySelector('.rangepicker__selected-from');
     const to = rangePicker.element.querySelector('.rangepicker__selected-to');
@@ -153,7 +153,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -167,13 +167,13 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
     const rightNavigation = rangePicker.element.querySelector('.rangepicker__selector-control-right');
 
-    rightNavigation.dispatchEvent(new MouseEvent('click', {
+    rightNavigation.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -187,13 +187,13 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const input = rangePicker.element.querySelector('.rangepicker__input');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
     const rightNavigation = rangePicker.element.querySelector('.rangepicker__selector-control-left');
 
-    rightNavigation.dispatchEvent(new MouseEvent('click', {
+    rightNavigation.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -208,7 +208,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -219,8 +219,8 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const lastDate = secondDateGrid.lastElementChild;
 
     // change "from" and "to" dates
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    lastDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+    lastDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     let from = rangePicker.element.querySelector('.rangepicker__selected-from');
     let to = rangePicker.element.querySelector('.rangepicker__selected-to');
@@ -230,7 +230,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     expect(to.textContent.trim()).toEqual('30');
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -247,7 +247,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -256,12 +256,12 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const firstDate = firstDateGrid.firstElementChild;
 
     // change "from" date
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     const rightNavigation = rangePicker.element.querySelector('.rangepicker__selector-control-right');
 
     // got to the next couple of months
-    rightNavigation.dispatchEvent(new MouseEvent('click', {
+    rightNavigation.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -270,10 +270,10 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const lastDate = secondDateGrid.lastElementChild;
 
     // change "to" date
-    lastDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    lastDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -289,7 +289,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -298,10 +298,10 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const firstDate = firstDateGrid.firstElementChild;
 
     // change "from" date
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -317,7 +317,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -327,12 +327,12 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const nexDate = firstDate.nextElementSibling;
 
     // change "from" date to "01.10.2019"
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
     // change "to" date to "02.10.2019"
-    nexDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    nexDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -349,7 +349,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -358,12 +358,12 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const firstDate = firstDateGrid.firstElementChild;
 
     // change "from" date to "01.10.2019"
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
     // change "to" date to "01.10.2019"
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
        bubbles: true
     }));
 
@@ -380,7 +380,7 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const selector = rangePicker.element.querySelector('.rangepicker__selector');
 
     // open date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
@@ -389,12 +389,12 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const firstDate = firstDateGrid.firstElementChild;
 
     // change "from" date to "01.10.2019"
-    firstDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    firstDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     const rightNavigation = rangePicker.element.querySelector('.rangepicker__selector-control-right');
 
     for (let i = 0; i < MONTHS_COUNT; i++) {
-      rightNavigation.dispatchEvent(new MouseEvent('click', {
+      rightNavigation.dispatchEvent(new MouseEvent('pointerdown', {
         bubbles: true
       }));
     }
@@ -404,10 +404,10 @@ describe('forms-fetch-api-part-2/range-picker', () => {
     const lastDate = secondDateGrid.firstElementChild;
 
     // change "to" date "01.11.2020"
-    lastDate.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    lastDate.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 
     // close date picker
-    input.dispatchEvent(new MouseEvent('click', {
+    input.dispatchEvent(new MouseEvent('pointerdown', {
       bubbles: true
     }));
 
