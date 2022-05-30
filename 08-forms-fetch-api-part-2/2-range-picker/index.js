@@ -249,6 +249,9 @@ export default class RangePicker {
   }
 
   destroy() {
+    this.subElements.input.removeEventListener('pointerdown', this.handleElementClick);
+    this.subElements.selector.removeEventListener('pointerdown', this.handleSelectorClick);
+    document.removeEventListener('pointerdown', this.handleInputClick);
     this.remove();
   }
 
